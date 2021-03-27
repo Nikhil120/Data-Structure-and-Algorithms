@@ -1,17 +1,5 @@
 package tree;
 
-import java.util.*;
-
-class Node {
-	int x;
-	Node left;
-	Node right;
-	
-	public Node(int x) {
-		this.x = x;
-	}
-}
-
 public class BinarySearchTree {
 	Node root;
 	
