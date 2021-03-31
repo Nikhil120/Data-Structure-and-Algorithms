@@ -3,6 +3,7 @@ package graph;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Stack;
 
 public class Graph {
 	private HashMap<Integer, ArrayList<Integer>> adjList;
@@ -204,15 +205,46 @@ public class Graph {
 		}
 	}
 	
+	public void topologicalSortingUtil(int x, boolean[] visited, Stack<Integer> stack) {
+		
+		visited[x] = true;
+		
+		ArrayList<Integer> list = adjList.get(x);
+		
+		for (Integer i : list) {
+			if (!visited[i]) {
+				topologicalSortingUtil(i, visited, stack);
+			}
+		}
+		
+		stack.push(x);
+	}
+	
+	public void topologicalSorting() {
+		boolean[] visited = new boolean[v];
+		Stack<Integer> stack = new Stack<Integer>();
+		
+		for (int i=0; i<v; i++) {
+			if(! visited[i]) {
+				topologicalSortingUtil(i, visited, stack);
+			}
+		}
+		
+		System.out.println("\nTopological Sorting");
+		while (!stack.empty()) {
+			System.out.print(stack.pop() + "  ");
+		}
+	}
+	
 	
 	public static void main(String[] args) {
-		Graph graph = new Graph(4);
-		graph.addEdge(0, 1);
-		graph.addEdge(0, 2);
-		//graph.addEdge(1, 2);
-		//graph.addEdge(2, 0);
+		Graph graph = new Graph(6);
+		graph.addEdge(5, 2);
+		graph.addEdge(5, 0);
+		graph.addEdge(4, 0);
+		graph.addEdge(4, 1);
 		graph.addEdge(2, 3);
-		//graph.addEdge(3, 3);
+		graph.addEdge(3, 1);
 		
 		System.out.println("BFS");
 		graph.BFS(2);
@@ -226,5 +258,7 @@ public class Graph {
 		System.out.println("\nCycle in Directed graph - DFS : " + cycle3);
 		System.out.println("\nShortest Path");
 		graph.findShortestDistance(0, 3);
+		
+		graph.topologicalSorting();
 	}
 }
