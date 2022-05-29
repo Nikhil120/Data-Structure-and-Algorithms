@@ -144,6 +144,72 @@ public class BinarySearchTree {
 		deleteUtil(root, x);
 	}
 	
+	public int leftMost(Node node) {
+		if (node == null) {
+			return -1;
+		}
+		
+		while (node.left != null) {
+			node = node.left;
+		}
+		
+		return node.x;
+	}
+	
+	public int rightMost(Node node) {
+		if (node == null) {
+			return -1;
+		}
+		
+		while (node.right != null) {
+			node = node.right;
+		}
+		
+		return node.x;
+	}
+	
+	public int floorUtil(Node node, int x) {
+		if (node == null) {
+			return Integer.MAX_VALUE;
+		}
+		
+		if (x == node.x) {
+			return node.x;
+		}
+		if (x < node.x) {
+			return floorUtil(node.left, x);
+		}
+		
+		int temp = floorUtil(root.right, x);
+		
+		return (temp <= x) ? temp : node.x;
+	}
+	
+	public int floor(int x) {
+		return floorUtil(this.root, x);
+	}
+	
+	public int ceilUtil(Node node, int x) {
+		if (node == null ) {
+			return Integer.MIN_VALUE;
+		}
+		
+		if (x == node.x) {
+			return node.x;
+		}
+		if (x > node.x) {
+			return ceilUtil(node.right, x);
+		}
+		
+		int temp = ceilUtil(node.left, x);
+		
+		return (temp >= x) ? temp : node.x;
+	}
+	
+	public int ceil(int x) {
+		return ceilUtil(this.root, x);
+	}
+	
 	public static void main(String[] args) {
 		BinarySearchTree binarySearchTree = new BinarySearchTree();
 		binarySearchTree.insert(5);
@@ -151,7 +217,7 @@ public class BinarySearchTree {
 		binarySearchTree.insert(6);
 		binarySearchTree.insert(1);
 		binarySearchTree.insert(8);
-		binarySearchTree.insert(0);
+//		binarySearchTree.insert(0);
 		binarySearchTree.insert(6);
 		binarySearchTree.insert(4);
 		binarySearchTree.insert(2);
@@ -178,6 +244,12 @@ public class BinarySearchTree {
 		binarySearchTree.inOrder();
 		binarySearchTree.preOrder();
 		binarySearchTree.postOrder();
+		
+		int floor = binarySearchTree.floor(0);
+		System.out.println("\nFloor : " + floor);
+
+		int ceil = binarySearchTree.ceil(13);
+		System.out.println("\nCeil: " + ceil);
 		
 	}
 }

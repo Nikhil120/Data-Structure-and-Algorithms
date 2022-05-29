@@ -186,9 +186,48 @@ public class AVL {
 		root = deleteUtil(root, x);
 	}
 	
+	public int leftMost(Node node) {
+		if (node == null) {
+			return -1;
+		}
+		
+		while (node.left != null) {
+			node = node.left;
+		}
+		
+		return node.x;
+	}
+	
+	public int floorUtil(Node node, int x) {
+		if (node == null) {
+			return -1;
+		}
+		
+		int result;
+		
+		if (x < node.x) {
+			result = floorUtil(node.left, x);
+		}
+		else if (x > node.x) {
+			result = floorUtil(node.right, x);
+		}
+		else {
+			result = leftMost(node.right);
+		}
+		
+		return Math.max(node.x, result);
+	}
+	
+	public int floor(int x) {
+		int result = floorUtil(this.root, x);
+		
+		return result;
+	}
+	
 	public static void main(String[] args) {
 		
-		AVL avl = new AVL();
+//		AVL avl = new AVL();
+		AVL1 avl = new AVL1();
 		
 		avl.insert(3);
 		avl.insert(4);
