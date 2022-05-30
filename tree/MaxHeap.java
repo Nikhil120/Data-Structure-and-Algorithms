@@ -47,10 +47,10 @@ public class MaxHeap {
 	private void heapify(int pos) {
 		int max = pos;
 		
-		if (heap[leftChild(pos)] > heap[max]) {
+		if (leftChild(pos) < size && heap[leftChild(pos)] > heap[max]) {
 			max = leftChild(pos);
 		}
-		if (heap[rightChild(pos)] > heap[max]) {
+		if (rightChild(pos) < size && heap[rightChild(pos)] > heap[max]) {
 			max = rightChild(pos);
 		}
 		
@@ -63,6 +63,7 @@ public class MaxHeap {
 	public int getMax() {
 		if (size <= 0) {
 			System.out.println("Underflow");
+			return Integer.MIN_VALUE;
 		}
 		
 		int popped = heap[0];
