@@ -226,8 +226,7 @@ public class AVL {
 	
 	public static void main(String[] args) {
 		
-//		AVL avl = new AVL();
-		AVL1 avl = new AVL1();
+		AVL avl = new AVL();
 		
 		avl.insert(3);
 		avl.insert(4);
