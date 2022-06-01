@@ -3,6 +3,8 @@ package graph;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
 import java.util.Stack;
 
 public class Graph {
@@ -18,7 +20,7 @@ public class Graph {
 	
 	public void addEdge(int source, int destination) {
 		adjList.get(source).add(destination);
-		//adjList.get(destination).add(source);
+//		adjList.get(destination).add(source);
 	}
 	
 	// BFS traversal of graph
@@ -236,6 +238,48 @@ public class Graph {
 		}
 	}
 	
+	// Kahn's Algorithm
+	public void topologicalSorting1() {
+		int[] indegree = new int[v];
+		Queue<Integer> queue = new LinkedList<>();
+		List<Integer> topSort = new ArrayList<>();
+		int count = 0;
+		
+		for (int i=0; i<v; i++) {
+			for (int a : adjList.get(i)) {
+				indegree[a]++;
+			}
+		}
+		
+		for (int i=0; i<v; i++) {
+			if (indegree[i] == 0) {
+				queue.add(i);
+			}
+		}
+		
+		while (!queue.isEmpty()) {
+			int top = queue.poll();
+			topSort.add(top);
+			
+			for (int a : adjList.get(top)) {
+				if (--indegree[a] == 0) {
+					queue.add(a);
+				}
+			}
+			++count;
+		}
+		
+		if (count != v) {
+			System.out.println("Cyclic Graph");
+			return;
+		}
+
+		System.out.println("\nTopological Sorting");
+		for (int a : topSort) {
+			System.out.print(a + " ");
+		}
+	}
+	
 	
 	public static void main(String[] args) {
 		Graph graph = new Graph(6);
@@ -260,5 +304,6 @@ public class Graph {
 		graph.findShortestDistance(0, 3);
 		
 		graph.topologicalSorting();
+		graph.topologicalSorting1();
 	}
 }
