@@ -24,7 +24,7 @@ public class JobSequencing {
 	public static void printJobScheduling(ArrayList<Job> arr, int t) {
 		Collections.sort(arr);
 		int n = arr.size();
-		boolean[] slot = new boolean[n];
+		boolean[] slot = new boolean[t];
 		char[] jobs = new char[t];
 		
 		for (int i=0; i<n; i++) {

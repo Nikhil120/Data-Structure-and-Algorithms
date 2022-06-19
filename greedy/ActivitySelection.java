@@ -6,15 +6,14 @@ public class ActivitySelection {
 		int i=0; 
 		int j=0;
 		
-		System.out.print(i + " ");
+		System.out.println(s[i] + " " + f[i]);
 		
 		for (i=1; i<n; i++) {
 			if (s[i] >= f[j]) {
-				System.out.print(i + " ");
+				System.out.println(s[i] + " " + f[i]);
 				j = i;
 			}
 		}
-		
 	}
 	
 	 public static void main(String[] args) {
